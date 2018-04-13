@@ -1,0 +1,70 @@
+{% extends "base_authentication.html" %}
+{% block content %}
+<h3>Please sign up by filling up your details below</h3>
+
+    <!--form formatting-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <!--Form-->
+                <form role="form" action="" method="POST">
+
+                    <!--email kwarg-->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" name={{email}} placeholder="enter email address here" value={{request.form.email}}>
+                        {% if form.email.errors %}
+                            <ul class="alert alert-danger">{% for error in form.email.errors%}</ul>
+                                <li>{{error}}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <!--username kwarg-->
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input class="form-control" name={{username}} placeholder="create a username" value={{request.form.username}}>
+                        {% if form.username.errors %}
+                            <ul class="alert alert-danger">{% for error in form.username.errors%}</ul>
+                                <li>{{error}}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <!--pwd kwarg-->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" name={{password}} placeholder="enter password. Must be at least 6 characters" value={{request.form.password}}>
+                        {% if form.password.errors %}
+                            <ul class="alert alert-danger">{% for error in form.password.errors%}</ul>
+                                <li>{{error}}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <input type="hidden" name="secret_key" value="Password">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <!--reset button-->
+                    <button type="reset" name="reset" class="btn btn-default" value="Form Cleared">Clear</button>
+
+                    <!--submit button-->
+                    <button type="submit" name="submit" class="btn btn-default" value="Form Sent">Submit</button>
+
+                    <!--flash messages-->
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class="flash_msgs">
+                                {% for message in messages %}
+                                    <li>{{message}} <a href="{{url_for('try_login')}}">logging in</a></li>
+                                {% endfor %}
+                        {% endif%}
+                    {% endwith %}
+                        </ul>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
