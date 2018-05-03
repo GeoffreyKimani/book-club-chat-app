@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{page_title}}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/posts.css')}}">
+    <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
+</head>
+<body>
+
+<div class="page">
+    <h1>Simple Flask Blog</h1>
+    <h1>Welcome here!!</h1>
+    <h2>Book Club - What Is The Gospel?</h2>
+
+    <p>Welcome to our application {{username}}. Go to the dashboard to customize your profile</p>
+
+    <!--blog format area-->
+    {% block content%}
+    {% endblock %}
+
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% block body %}{% endblock %}
+</div>
+
+</body>
+</html>
