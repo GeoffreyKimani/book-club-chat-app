@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{page_title}}</title>
     <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/welcome.css')}}">
@@ -11,18 +12,47 @@
 <body class="welcome_body" onload="carousel()">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-12 col-md-8 col-sm-8 col-xs-6">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header ">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle">Menu<span class="caret"></span></button>
+                                <ul class="nav navbar-nav dropdown-menu" role="menu" aria-labelledby="menu1">
+                                    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">Home</a></li>
+                                    <li role="presentation" ><a role="menuitem" tabindex="-1" href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                                    <li role="presentation" ><a role="menuitem" tabindex="-1" href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right" role="menu" aria-labelledby="menu1">
+                                    <li role="presentation" ><a role="menuitem" tabindex="-1" href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+                                    <li role="presentation" ><a role="menuitem" tabindex="-1" href="{{ url_for('login_bp.login') }}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a></li>
+                                </ul>
+                            </div>
+
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                                <li><a href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+                                <li><a href="{{ url_for('login_bp.login') }}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
                 <div class="welcome_page">
 
                     <div class="sliderArea">
                         <div class="sliderImages">
-                            <img class="mySlides" style="width:100%" src="static/images/image1.jpg" />
-                            <img class="mySlides" style="width:100%" src="static/images/image6.jpeg" />
-                            <img class="mySlides" style="width:100%" src="static/images/image8.jpeg" />
-                            <img class="mySlides" style="width:100%" src="static/images/image9.png" />
-                            <img class="mySlides" style="width:100%" src="static/images/image11.jpeg" />
-                            <img class="mySlides" style="width:100%" src="static/images/image12.png" />
-                            <img class="mySlides" style="width:100%" src="static/images/image13.jpg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image1.jpg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image6.jpeg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image8.jpeg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image9.png" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image11.jpeg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image12.png" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image13.jpg" />
 
                             <br><br>
                         </div>

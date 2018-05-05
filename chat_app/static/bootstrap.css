@@ -4490,7 +4490,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-right {
     float: right !important;
     margin-right: -15px;
-	margin-top:0px;
+	margin-top:-5px;
   }
   .navbar-right ~ .navbar-right {
     margin-right: 0;
@@ -4499,15 +4499,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default {
   background-color: #f8f8f8;
   border-color: #e7e7e7;
-  position:relative;
-  height:10%;
-  width:80%;
+  position:absolute;
+  height:12%;
+  width:75%;
   text-transform: uppercase;
-  top:1px;
+  border-bottom: 2px dashed blue; 
+  top:1px;  
   border-top-left-radius:10px;
   border-top-right-radius:10px;
-  margin-left:10%;
-  margin-right:10%;
 	 
 }
 @media (max-width: 767px) {

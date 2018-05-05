@@ -1,0 +1,32 @@
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar ul li{
+    list-style-type: none;
+    display: inline-block;
+    padding-top: 10px;
+    padding-left:10px;
+    font-family:sans serif;
+    font-size: 20px;
+    margin-left:13%;
+}
+
+.navbar ul li a:hover {
+    cursor:pointer
+}
+
+.current{
+    text-decoration: underline dotted red;
+    weight:bold;
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    border-radius: 4px;
+  }
+}

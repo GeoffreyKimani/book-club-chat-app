@@ -49,10 +49,10 @@
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                         <!--reset button-->
-                        <button type="reset" name="reset" class="btn btn-default" value="Form Cleared">Clear</button>
+                        <button type="reset" name="reset" class="btn btn-danger" value="Form Cleared">Clear</button>
 
                         <!--submit button-->
-                        <button type="submit" name="submit" class="btn btn-default" value="Form Sent">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-success" value="Form Sent">Submit</button>
 
                         <!--flash messages-->
                         {% with messages = get_flashed_messages() %}

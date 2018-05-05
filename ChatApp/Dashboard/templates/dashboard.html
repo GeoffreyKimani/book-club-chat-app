@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/dashboard.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/bootstrap.css')}}">
+    <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
+</head>
+<body class="dashboard">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <ul class="nav navbar-nav">
+                                <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
+                                <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                                <li class="current"><a href="#">Dashboard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="dashboard_area">
+                    <h1>PROFILE</h1><br>
+                    <a><span class="profile_circle"></span><br><br></a>
+                    <p>Name: </p> <p></p><br>
+
+                    <h1>Book Clubs</h1><br>
+
+                    <ul class="bottom_nav">
+                       <h3><li><a>About Us</a></li></h3>
+                       <h3><li><a>Log Out</a></li></h3>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

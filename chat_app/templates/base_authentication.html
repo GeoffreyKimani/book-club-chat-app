@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {% if page_title == 'login' %}
+                {{page_title}}
+            {%elif page_title == 'signup' %}
+                {{page_title}}
+            {% endif %}
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sign_up_log_in.css')}}">
+
+</head>
+<body class="body">
+    <h1 class="h1">Welcome to Book Club Chat App</h1>
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

@@ -5,6 +5,7 @@ from .Welcome.index_bp import home_bp
 from .Authentication.SignUp.signup_bp import signup_bp
 from .Authentication.LogIn.login_bp import login_bp
 from .ChatArea.chatter_bp import chatter_bp
+from .Dashboard.dashboard_bp import dashboard_bp
 
 app = Flask(__name__)
 
@@ -24,3 +25,4 @@ app.register_blueprint(home_bp)
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(chatter_bp)
+app.register_blueprint(dashboard_bp)

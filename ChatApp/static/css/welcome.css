@@ -4,9 +4,10 @@
 
 .welcome_page{
     margin: 2em auto;
-    margin-top: 15px;
+    margin-top: 1%;
     width: 50em;
     border: 8px solid #ccc;
+    border-radius:10px;
     padding: 0.8em;
     background: white;
     text-align:center;
@@ -44,4 +45,10 @@
 		height:100%;
 		overflow:hidden;
 		position:relative;
+}
+.navbar-default .navbar-nav > .current > a,
+.navbar-default .navbar-nav > .current > a:hover,
+.navbar-default .navbar-nav > .current > a:focus {
+  color: green;
+  background-color: yellow;
 }

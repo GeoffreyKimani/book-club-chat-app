@@ -2,28 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{page_title}}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/posts.css')}}">
     <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/bootstrap.css')}}">
+
 </head>
-<body>
+<body class="body">
 
-<div class="page">
-    <h1>Simple Flask Blog</h1>
-    <h1>Welcome here!!</h1>
-    <h2>Book Club - What Is The Gospel?</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
+                            <li class="active"><a href="#">Chats</a></li>
+                            <li><a href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
-    <p>Welcome to our application {{username}}. Go to the dashboard to customize your profile</p>
+         <div class="pages">
+            <h1 class="heading_1">Simple Flask Blog</h1>
+            <h1 class="heading_1">Welcome here!!</h1>
+            <h2 class="heading_2">Book Club - What Is The Gospel?</h2>
 
-    <!--blog format area-->
-    {% block content%}
-    {% endblock %}
+            <p>Welcome to our application {{username}}. Go to the dashboard to customize your profile</p>
 
-    {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %}
-    {% block body %}{% endblock %}
+            <!--blog format area-->
+            {% block content%}
+            {% endblock %}
+
+            {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+
+        </div>
+    </div>
 </div>
-
 </body>
 </html>

@@ -17,3 +17,8 @@ def redirect_login():
 @home_bp.route('/red_signup')
 def redirect_signup():
     return redirect(url_for("signup_bp.signup"))
+
+
+@home_bp.route('/red_dashboard')
+def to_dashboard():
+    return redirect(url_for("dashboard_bp.dashboard"))
