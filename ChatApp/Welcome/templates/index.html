@@ -16,19 +16,6 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <div class="navbar-header ">
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle">Menu<span class="caret"></span></button>
-                                <ul class="nav navbar-nav dropdown-menu" role="menu" aria-labelledby="menu1">
-                                    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">Home</a></li>
-                                    <li role="presentation" ><a role="menuitem" tabindex="-1" href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
-                                    <li role="presentation" ><a role="menuitem" tabindex="-1" href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
-                                </ul>
-                                <ul class="nav navbar-nav navbar-right" role="menu" aria-labelledby="menu1">
-                                    <li role="presentation" ><a role="menuitem" tabindex="-1" href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
-                                    <li role="presentation" ><a role="menuitem" tabindex="-1" href="{{ url_for('login_bp.login') }}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a></li>
-                                </ul>
-                            </div>
-
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="#">Home</a></li>
                                 <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
