@@ -1,7 +1,0 @@
-
-
-                    <!--<input type="hidden" name="secret_key" value="Password">-->
-
-                                        {{ form.hidden_tag() }}
-
-
