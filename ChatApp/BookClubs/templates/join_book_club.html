@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{page_title}}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+    <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sign_up_log_in.css')}}">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="body">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <ul class="nav navbar-nav">
+                                <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
+                                <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                                <li class="current"><a href="{{ url_for('dashboard_bp.dashboard')}}">Dashboard</a></li>
+                                {% if session['admin']%}
+                                    <li class="current"><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
+                                {% endif %}
+                                <li><a href="{{ url_for('dashboard_bp.logout')}}">Log Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <p>Here is a list of available book clubs you may wish to join. Kindly send request to a book club you know.<br>
+                    Ensure you contact the admin of the book club to approve you</p>
+
+                <form role="form" action="" method="post">
+                    {% for item in book_club_list %}
+                        <input type="checkbox" name="book_clubs" value="{{item.id}}"/>{{item.name}}<br><br>
+                    {% endfor %}
+
+                    <input type="hidden" name="secret_key">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <!--reset button-->
+                    <button type="reset" name="reset" class="btn btn-danger" value="Form Cleared">Clear</button>
+
+                    <!--submit button-->
+                    <button type="submit" name="submit" class="btn btn-success" value="Form Sent">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

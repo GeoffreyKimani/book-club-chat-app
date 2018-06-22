@@ -7,34 +7,76 @@
         <li>
             <h2 class="heading_2">{{post.title}}</h2>
             <p>{{post.text}}</p>
+            <p class="user_post">Post by: {{post.email}}</p>
         </li>
         {% else %}
-        <em> No Posts yet! Create one ... </em>
+        <em> No Posts yet! Create one or Select Book Club to view posts</em>
         {% endfor %}
     </ul>
 
+    {% if session['active_id'] %}
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn" class="btn btn-lg btn-persist">Add Post</button>
+    {% endif %}
 
-    <!--posts input area-->
-        <!--form formatting-->
+        <br>
 
-                <form role=form action="{{ url_for( 'chatter_bp.add_post' ) }}" method="POST">
-                        <div class="form-group">
-                            <label>Title:</label>
-                                <input type=text size=30 name=title>
-                        </div>
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
 
-                        <div class="form-group">
-                            <label>Text:</label>
-                            <textarea name=text rows=5 cols=40></textarea>
-                        </div>
+        <br>
 
-                    <input type="hidden" name="secret_key" value="Password">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-                    <!--reset button-->
-                    <button type="reset" name="reset" class="btn btn-default" value="Form Cleared">Clear</button>
 
-                    <!--submit Button-->
-                    <button type="submit" name="submit" class="btn btn-default" value="Form Sent">Submit</button>
-                </form>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Post Area</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal-body">
+
+            <!--posts input area-->
+                <!--form formatting-->
+
+                            <div class="mod-body">
+                                <form role=form action="{{ url_for( 'chatter_bp.add_post' ) }}" method="POST">
+                                    <div class="form-group">
+                                        <label>Title:</label>
+                                            <input type=text size=50 name=title>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Text:</label>
+                                        <textarea name=text rows=10 cols=50></textarea>
+                                    </div>
+
+                                    <input type="hidden" name="secret_key" value="Password">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                    <!--reset button-->
+                                    <button type="reset" name="reset" class="btn btn-danger" value="Form Cleared">Clear</button>
+
+                                    <!--submit Button-->
+                                    <button type="submit" name="submit" class="btn btn-success" value="Form Sent">Submit</button>
+                                </form>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+        </div>
+  </div>
+
+</div>
 {% endblock %}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{page_title}}</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sign_up_log_in.css')}}">
+    <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
+
+</head>
+<body class="signup_body">
+    <h3>Please fill in the details to add a book to a book club</h3>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="body">
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
+                                    <li><a href="{{url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                                    <li><a href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
+                                    <li class="current"><a href="#">Add Book</a></li>
+                                    {% if session['admin']%}
+                                        <li><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <form role="form" method="POST">
+
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul class="flash">
+                                    {% for message in messages %}
+                                        <li>{{message}} <a href="{{url_for('signup_bp.try_login')}}">Log In</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif%}
+                        {% endwith %}
+
+                        <!--details of book being read-->
+
+                        <!--book name-->
+                        <div class="form-group">
+                            <label for="book_name">Book Title</label>
+                            {{ form.book_name(class="form-control", placeholder="Enter name of the current book.")}}
+                             {% if form.book_name.errors %}
+                                <ul class="error">
+                                    {% for error in form.book_name.errors %}
+                                        <li>{{error}}</li>
+                                    {% endfor %}
+                                </ul>
+                             {% endif %}
+                        </div>
+
+                        <!--Author-->
+                        <div class="form-group">
+                            <label for="book_author">Book Author</label>
+                            {{ form.book_author(class="form-control", placeholder="Enter name of the author.")}}
+                             {% if form.book_author.errors %}
+                                <ul class="error">
+                                    {% for error in form.book_author.errors %}
+                                        <li>{{error}}</li>
+                                    {% endfor %}
+                                </ul>
+                             {% endif %}
+                        </div>
+
+                        <!--ISBN-->
+                        <div class="form-group">
+                            <label for="book_isbn">Book ISBN</label>
+                            {{ form.book_isbn(class="form-control", placeholder="Enter ISBN of the book (check back cover).")}}
+                             {% if form.book_isbn.errors %}
+                                <ul class="error">
+                                    {% for error in form.book_isbn.errors %}
+                                        <li>{{error}}</li>
+                                    {% endfor %}
+                                </ul>
+                             {% endif %}
+                        </div>
+
+                        <!--ISBN-->
+                        <div class="form-group">
+                            <label for="book_category">Book Category</label>
+                            {{ form.book_category(class="form-control", placeholder="Enter category of the book.")}}
+                             {% if form.book_category.errors %}
+                                <ul class="error">
+                                    {% for error in form.book_category.errors %}
+                                        <li>{{error}}</li>
+                                    {% endfor %}
+                                </ul>
+                             {% endif %}
+                        </div>
+
+                        <!--Review-->
+                        <div class="form-group">
+                            <label for="book_review">Book Review</label>
+                            <textarea name="book_review" rows=5 cols=40 class="form-control" placeholder="Give Review of the book if any or a sneak peak of the foreword..."></textarea>
+                            <!--{{ form.book_review(class="form-control", placeholder="Enter review of the book.")}}-->
+                            {% if form.book_review.errors %}
+                                <ul class="error">
+                                    {% for error in form.book_review.errors %}
+                                        <li>{{error}}</li>
+                                    {% endfor %}
+                                </ul>
+                             {% endif %}
+                        </div>
+
+
+                        <input type="hidden" name="secret_key" value="Password">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <!--reset button-->
+                        <button type="reset" name="reset" class="btn btn-danger" value="Form Cleared">Clear</button>
+
+                        <!--submit button-->
+                        <button type="submit" name="submit" class="btn btn-success" value="Form Sent">Submit</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

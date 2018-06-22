@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{page_title}}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/dashboard.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/bootstrap.css')}}">
+    <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
+</head>
+<body class="dashboard">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <ul class="nav navbar-nav">
+                                <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
+                                <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                                <li><a href="{{ url_for('dashboard_bp.dashboard')}}">Dashboard</a></li>
+                                <li><a href="{{ url_for('dashboard_bp.logout')}}">Log Out</a></li>
+                                <li class="current"><a href="#">Join Requests</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="dashboard_area">
+                    <p>Hi, {{session['user']}} here are the requests for book clubs you are admin to.<br>
+                        Check appropriately then click on the approve or decline button.</p>
+
+                    {% if request_messages %}
+
+                        <form role="form" action="" method="post">
+                            {% for request_message in request_messages %}
+                                <br><input type="checkbox" name="request_message" value="{{request_message.id}}"/>{{request_message.request}}<br><br>
+                            {% endfor %}
+
+                                <input type="hidden" name="secret_key">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                <!--reset button-->
+                                <button type="reset" name="reset" class="btn btn-danger" value="some_value">Decline</button>
+
+                                <!--submit button-->
+                                <button type="submit" name="submit" class="btn btn-success" value="some_value">Approve</button>
+                        </form>
+                    {% else %}
+                        <em>There are no requests, come back later ...</em>
+                    {% endif %}
+
+                            {% for message in get_flashed_messages() %}
+                                <div class="flash">{{ message }}</div>
+                            {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -3833,6 +3833,7 @@ tbody.collapse.in {
 .input-group .form-control:focus {
   z-index: 3;
 }
+.form-control-text-area{height: auto;}
 .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn {

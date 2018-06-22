@@ -1,12 +1,14 @@
 from wtforms import PasswordField, StringField, validators
 from ChatApp.Authentication.LogIn.login_bp import LogInForm
-from flask import render_template, Blueprint, url_for, request, flash, redirect
+from flask import render_template, Blueprint, url_for, request, flash, redirect, session
 
 signup_bp = Blueprint('signup_bp', __name__, static_folder='static', template_folder='templates')
 
 
 # registration form
 class RegistrationForm(LogInForm):
+    first_name = StringField("Enter First name", [validators.Length(min=3, max=15)])
+    last_name = StringField("Enter Surname", [validators.Length(min=4, max=15)])
     username = StringField("Enter Username", [validators.Length(min=4, max=20)])
     password = PasswordField("Password", [validators.InputRequired(),
                                           validators.EqualTo('confirm_password', message="Passwords Must Match")])
@@ -17,20 +19,23 @@ class RegistrationForm(LogInForm):
 def signup():
     form = RegistrationForm(request.form)
     page_title = "Sign Up"
+    session.pop('user', None)
 
     if request.method == 'POST' and form.validate():
         from ChatApp import app
         app.logger.info("Validation Complete, now posting to db")
         kwargs = {
-            'email': request.form['email'],
+            'first_name': request.form['first_name'],
+            'last_name': request.form['last_name'],
             'username': request.form['username'],
+            'email': request.form['email'],
             'password': request.form['password'],
             'secret_key': request.form['secret_key']
         }
         from ChatApp import mysql
         connection = mysql.connect()
         cursor = connection.cursor()
-        check_user_exists = cursor.execute('SELECT user_email FROM users WHERE user_email = (%s)',
+        check_user_exists = cursor.execute('SELECT email FROM user WHERE email = (%s)',
                                            request.form['email'])
         app.logger.info("There exists " + str(check_user_exists) + " users with this email:" + request.form['email'])
 
@@ -38,8 +43,15 @@ def signup():
             flash('Sorry user already exists! Try a different email, or try to ')
             return render_template('signup.html', form=form, page_title=page_title)
         else:
-            cursor.execute('INSERT INTO users (user_email, user_name, user_password) VALUES (%s,%s,%s)',
-                           (request.form['email'], request.form['username'], request.form['password']))
+            # register the user
+            session['user'] = request.form['username'].upper()
+            from ChatApp import bcrypt
+            hashed_pwd = bcrypt.generate_password_hash(request.form['password'])
+            print(hashed_pwd)
+            cursor.execute('INSERT INTO user (first_name, last_name, username, email, password) VALUES (%s,%s,%s,%s,'
+                           '%s)',
+                           (request.form['first_name'], request.form['last_name'], request.form['username'],
+                            request.form['email'], hashed_pwd))
             connection.commit()
             cursor.close()
             connection.close()

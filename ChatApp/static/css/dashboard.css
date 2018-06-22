@@ -4,10 +4,7 @@
 
 .dashboard_area{
     font-family: sans-serif;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin: 2em auto;
-    margin-top: 15px;
+    margin: 15px auto 2em;
     width: 50em;
     border: 8px solid #ccc;
     padding: 0.8em;
@@ -32,3 +29,38 @@
     cursor: pointer;
     color: green;
 }
+
+/*flash messages*/
+.flash{
+        background: rgba(206,229,245, 0.7);
+        padding: 0.5em;
+        border: 1px solid #aacbe2;
+        list-style-type: none;
+}
+
+.heading_2 {
+        font-family: Georgia , serif;
+        margin-right:25%;
+        margin-left:25%;
+        color: #377ba8;
+        font-size: 1.2em;
+        border-bottom: 5px solid #eee;
+        }
+
+.heading_format{
+        font-family: Georgia , serif;
+        color: #377ba8;
+        font-size: 1.2em;
+        border-bottom: 5px solid #eee;
+
+}
+
+.book_club {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.book_club li { margin: 0.8em 1.2em; }
+
+.book_club li h3 { margin-left: -1em; }

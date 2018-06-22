@@ -18,8 +18,7 @@ a, .heading_1, .heading_2 {color: #377ba8; }
     }
 
 .pages {
-    margin: 2em auto;
-    margin-top: 15px;
+    margin: 15px auto 2em;
     width: 65em;
     border: 8px solid #ccc;
     border-radius:10px;
@@ -28,11 +27,16 @@ a, .heading_1, .heading_2 {color: #377ba8; }
     text-align:left;
     }
 
-.posts { list-style: none; margin: 0; padding: 0; }
+.posts { list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
 .posts li { margin: 0.8em 1.2em; }
 
 .posts li h2 { margin-left: -1em; }
+
+.user_post {margin-left: 10px; color: #377ba8;}
 
 .metanav { text-align: right; font-size: 0.8em; padding: 0.3em;
 margin-bottom: 1em; background: #fafafa; }

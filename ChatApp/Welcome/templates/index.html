@@ -45,6 +45,10 @@
                         </div>
                     </div>
 
+                    {% for message in get_flashed_messages() %}
+                    <div class="flash">{{ message }}</div>
+                    {% endfor %}
+
                     It is said <b>a man who reads lives a thousand lives.</b> How many lives are you living?<br><br>
                     <ul class="welcome_questions">
                         <li>Do You wish to find a group of people to discuss books you have or are reading?</li>

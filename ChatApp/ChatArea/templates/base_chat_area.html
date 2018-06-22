@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{page_title}}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/posts.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal_box.css')}}">
     <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/bootstrap.css')}}">
+    <!--<script src="{{ url_for('static', filename='js/image_slider.js' )}}"></script>-->
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body class="body">
 
@@ -19,8 +22,11 @@
                     <div class="navbar-header">
                         <ul class="nav navbar-nav">
                             <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
-                            <li class="active"><a href="#">Chats</a></li>
+                            <li class="current"><a href="#">Chats</a></li>
                             <li><a href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
+                            {% if session['admin']%}
+                                <li><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -29,22 +35,58 @@
          <div class="pages">
             <h1 class="heading_1">Simple Flask Blog</h1>
             <h1 class="heading_1">Welcome here!!</h1>
-            <h2 class="heading_2">Book Club - What Is The Gospel?</h2>
 
-            <p>Welcome to our application {{username}}. Go to the dashboard to customize your profile</p>
+             {% if 'active' in session %}
+                <h2 class="heading_2">Book Club - {{session['active']}}</h2>
+             {%else%}
+                <h2 class="heading_2">Book Club - No Book Club Selected...</h2>
+             {% endif %}
+
+             <p>Welcome to our application {{ session['user'] }}. Go to the dashboard to:</p>
+                <blockquote>
+                    <ul>
+                        <li>Customize your profile</li>
+                        <li>Select from different book clubs</li>
+                    </ul>
+                </blockquote>
+             <p>Make sure to select the right book club to make a post</p>
 
             <!--blog format area-->
             {% block content%}
             {% endblock %}
 
-            {% for message in get_flashed_messages() %}
-            <div class="flash">{{ message }}</div>
-            {% endfor %}
-            {% block body %}{% endblock %}
         </div>
 
         </div>
     </div>
 </div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 </body>
 </html>

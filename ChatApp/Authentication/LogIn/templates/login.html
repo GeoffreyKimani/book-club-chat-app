@@ -35,17 +35,10 @@
                                         <li>{{error}}</li>
                                     {% endfor %}
                                 </ul>
-
-                            {% elif password_error %}
-                                    <ul class="alert alert-danger">
-                                        {% for error in password_error %}
-                                            {{error}}
-                                        {% endfor %}
-                                    </ul>
                             {% endif %}
                         </div>
 
-                        <input type="hidden" name="secret_key" value="Password">
+                        <input type="hidden" name="secret_key">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                         <!--reset button-->

@@ -21,26 +21,86 @@
                                 <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
                                 <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
                                 <li class="current"><a href="#">Dashboard</a></li>
+                                {% if session['admin']%}
+                                    <li class="current"><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
+                                {% endif %}
+                                <li><a href="{{ url_for('dashboard_bp.logout')}}">Log Out</a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>
 
                 <div class="dashboard_area">
+                    <!--PROFILE AREA-->
                     <h1>PROFILE</h1><br>
                     <a><span class="profile_circle"></span><br><br></a>
-                    <p>Name: </p> <p></p><br>
+                    <p>Name: {{ session['user'] }}</p> <p></p><br>
+                    {% if 'active' in session %}
+                        <p>Active Book Club: {{ session['active'] }}</p> <p></p><br>
+                    {% else %}
+                        <p>Active Book Club: No Book Club Selected </p> <p></p><br>
+                    {% endif %}
 
-                    <h1>Book Clubs</h1><br>
+                    <!--BOOK CLUB AREA-->
+                    <h1 class="heading_format">Book Clubs</h1><br>
+                    <blockquote>
+                        <!--display book club-->
+                        <ul class="book_club">
+                            {% for book_club in book_club_list %}
+                                    <li class="bottom_nav">
+                                        <a href="{{url_for('dashboard_bp.book_club_selection', id=book_club.id)}}" onclick="showMe()"><h3 class="heading_2">{{book_club.name}}</h3></a>
+                                    </li>
+
+                                <div id="BookClubBook">
+                                <li>
+                                    <h2 class="heading_format">Book Clubs</h2><br>
+                                    <ul>
+                                        {% for book in book_book_club %}
+                                            <a onclick="setId()" ><li>{{book.title}}</li></a>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                </div>
+                            {% endfor %}
+                        </ul>
+                    </blockquote>
 
                     <ul class="bottom_nav">
-                       <h3><li><a>About Us</a></li></h3>
-                       <h3><li><a>Log Out</a></li></h3>
+                        <h4 class="bottom_nav"><a href="{{ url_for('book_club_book_bp.add_book')}}">Add a Book to the Book Club</a></h4>
+                        <h4 class="bottom_nav"><a href="{{ url_for('book_club_bp.create_book_club')}}">Create a Book Club</a></h4>
+                        <h4 class="bottom_nav"><a href="{{ url_for('book_club_bp.join_book_club')}}">Join a Book Club</a></h4>
+
+                        {% if session['admin'] %}
+                            <h4 class="bottom_nav"><a href="{{ url_for('book_club_bp.approve_join_request')}}">View Join Requests</a></h4>
+                        {% endif %}
+                        <h4><li><a href="{{ url_for('dashboard_bp.logout')}}">Log Out</a></li></h4>
                     </ul>
+
+
+
+                        <!--flash messages-->
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul class="flash">
+                                    {% for message in messages %}
+                                        <li>{{message}}</li>
+                                    {% endfor %}
+                                 </ul>
+                            {% endif%}
+                        {% endwith %}
                 </div>
             </div>
         </div>
     </div>
 
 </body>
+<script language="JavaScript">
+    function showMe() {
+    BookClubBook.style.display = "";
+    }
+
+    function setId() {
+        var id = 1
+    }
+</script>
 </html>

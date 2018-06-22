@@ -4,6 +4,25 @@
     </title>
 
 {% block content %}
+<!--Navigation links-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
+                <li><a href="{{url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                <li><a href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="current"><a href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+                    <li><a href="{{ url_for('login_bp.login') }}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a></li>
+                </ul>
+                {% if session['admin']%}
+                    <li><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
 <h3>Please sign up by filling up your details below</h3>
 
     <!--form formatting-->
@@ -11,16 +30,27 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="body">
-
                     <!--Form-->
                     <form role="form" action="" method="POST">
 
-                        <!--email kwarg-->
+                        <!--first_name kwarg-->
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            {{form.email(class="form-control", placeholder="Enter email address here.")}}
-                            {% if form.email.errors %}
-                                <ul class="error">{% for error in form.email.errors%}
+                            <label for="first_name">First Name</label>
+                            {{form.first_name(class="form-control", placeholder="Enter your first name here.")}}
+                            {% if form.first_name.errors %}
+                                <ul class="error">{% for error in form.first_name.errors%}
+                                    <li>{{error}}</li>
+                                </ul>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <!--last_name kwarg-->
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            {{form.last_name(class="form-control", placeholder="Enter your surname here.")}}
+                            {% if form.last_name.errors %}
+                                <ul class="error">{% for error in form.last_name.errors%}
                                     <li>{{error}}</li>
                                 </ul>
                                 {% endfor %}
@@ -33,6 +63,18 @@
                              {{ form.username(class="form-control", placeholder="Create a Username") }}
                             {% if form.username.errors %}
                                 <ul class="error">{% for error in form.username.errors%}
+                                    <li>{{error}}</li>
+                                </ul>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <!--email kwarg-->
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            {{form.email(class="form-control", placeholder="Enter email address here.")}}
+                            {% if form.email.errors %}
+                                <ul class="error">{% for error in form.email.errors%}
                                     <li>{{error}}</li>
                                 </ul>
                                 {% endfor %}
