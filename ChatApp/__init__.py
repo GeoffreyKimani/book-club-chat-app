@@ -1,7 +1,9 @@
 import os
 
+import logging
+from logging.handlers import RotatingFileHandler
+
 from flask import Flask
-from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 from flask_bcrypt import Bcrypt
 
@@ -18,7 +20,7 @@ from .BookClubBooks.book_club_book import book_club_book_bp
 
 # configure the app
 def get_config():
-    return os.environ.get(APP_CONFIG_ENV_VAR, DEV_CONFIG_VAR).lower().strip()
+    return os.environ.get(APP_CONFIG_ENV_VAR, PROD_CONFIG_VAR).lower().strip()
 
 
 def config_app(app_instance):
@@ -38,6 +40,23 @@ def config_app(app_instance):
         app_instance.config.from_pyfile(config_file_path)
 
 
+# Logging System
+def logger(app):
+    if not app.debug:
+        # TODO: SetUp error messages to be emailed to admin
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler('logs/ChatApp.log', maxBytes=1024 * 1024, backupCount=10)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+        ))
+        file_handler.setLevel(logging.INFO)
+
+        app.logger.addHandler(file_handler)
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('Book Club ChatApp')
+        
+
 def register_blueprints(app):
     app.register_blueprint(home_bp)
     app.register_blueprint(signup_bp)
@@ -51,8 +70,9 @@ def register_blueprints(app):
 def create_app():
     app = Flask(__name__)
 
-    # call to configure app and register blue prints
+    # call to configure app, logging and register blue prints
     config_app(app)
+    logger(app)
     register_blueprints(app)
 
     # required for form security
@@ -64,4 +84,3 @@ def create_app():
     db = BaseModel.init_app(app)
 
     return app
-

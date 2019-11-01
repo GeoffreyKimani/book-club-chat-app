@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        {{ page_title }}
+<!--        {% if title %}-->
+<!--            {{ title }}-->
+<!--        {% else %}-->
+<!--            Chat App-->
+<!--        {% endif %}-->
+        MAIN TEMPLATE
     </title>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css')}}">
@@ -31,7 +36,7 @@
         </div>
     </div>
 </nav>
-    <h1 class="h1">Welcome to Book Club Chat App</h1>
+    <h1 class="h1">Welcome to Book Club Chat App! Main Template</h1>
     {% block content %}
     {% endblock %}
 

@@ -1,0 +1,4 @@
+logs/ChatApp.log
+
+__pycache__/
+*.py[cod]
