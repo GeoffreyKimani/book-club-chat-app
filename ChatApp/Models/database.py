@@ -14,6 +14,8 @@ class BaseModel(object):
     def migrate_db(app, db):
         from .user import User
         from .book_club import BookClub
+        from .book import Book
+        from .post import Post
         Migrate(app, db)
 
     @staticmethod
