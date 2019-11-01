@@ -1,6 +1,6 @@
 from flask import render_template, request, session, flash, Blueprint, redirect, url_for
 from wtforms import Form, validators, StringField
-from ChatApp.Authentication.LogIn.login_bp import format_db_string
+# from ChatApp.Authentication.LogIn.login_bp import format_db_string
 
 book_club_book_bp = Blueprint('book_club_book_bp', __name__, static_folder='static', template_folder='templates',
                               url_prefix='/book-club-book')

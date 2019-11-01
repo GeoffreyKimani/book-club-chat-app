@@ -6,16 +6,10 @@ from logging.handlers import RotatingFileHandler
 from flask import Flask
 from flask_wtf.csrf import CSRFProtect
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 from ChatApp.constants import APP_CONFIG_ENV_VAR, DEV_CONFIG_VAR, PROD_CONFIG_VAR, APP_NAME
 from ChatApp.Models.database import BaseModel
-from .Welcome.index_bp import home_bp
-from .Authentication.SignUp.signup_bp import signup_bp
-from .Authentication.LogIn.login_bp import login_bp
-from .ChatArea.chatter_bp import chatter_bp
-from .Dashboard.dashboard_bp import dashboard_bp
-from .BookClubs.book_club_bp import book_club_bp
-from .BookClubBooks.book_club_book import book_club_book_bp
 
 
 # configure the app
@@ -55,9 +49,16 @@ def logger(app):
         app.logger.addHandler(file_handler)
         app.logger.setLevel(logging.INFO)
         app.logger.info('Book Club ChatApp')
-        
+
 
 def register_blueprints(app):
+    from .Welcome.index_bp import home_bp
+    from .Authentication.SignUp.signup_bp import signup_bp
+    from .Authentication.LogIn.login_bp import login_bp
+    from .ChatArea.chatter_bp import chatter_bp
+    from .Dashboard.dashboard_bp import dashboard_bp
+    from .BookClubs.book_club_bp import book_club_bp
+    from .BookClubBooks.book_club_book import book_club_book_bp
     app.register_blueprint(home_bp)
     app.register_blueprint(signup_bp)
     app.register_blueprint(login_bp)
@@ -67,11 +68,21 @@ def register_blueprints(app):
     app.register_blueprint(book_club_book_bp)
 
 
+login = LoginManager()
+
+
 def create_app():
     app = Flask(__name__)
 
+    login.init_app(app)
+    login.login_view = 'login'
+
     # call to configure app, logging and register blue prints
     config_app(app)
+
+    # Database and Migrations setup
+    db = BaseModel.init_app(app)
+
     logger(app)
     register_blueprints(app)
 
@@ -80,7 +91,14 @@ def create_app():
     csrf.init_app(app)
     bcrypt = Bcrypt(app)
 
-    # Database and Migrations setup
-    db = BaseModel.init_app(app)
-
     return app
+
+# login = LoginManager()
+# login.init_app(app=create_app())
+# login.login_view = 'login'
+
+
+# @login.user_loader
+# def load_user(user_id):
+#     from ChatApp.Models.user import User
+#     return BaseModel.db.session.query(User).get(int(user_id))

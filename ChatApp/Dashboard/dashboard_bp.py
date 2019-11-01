@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, url_for, redirect, flash
-from ChatApp.Authentication.LogIn.login_bp import format_db_string
+# from ChatApp.Authentication.LogIn.login_bp import format_db_string
 
 dashboard_bp = Blueprint('dashboard_bp', __name__, static_folder='static', template_folder='templates')
 

@@ -1,28 +1,5 @@
-{% extends "base_authentication.html" %}
-    <title>
-        {{ page_title }}
-    </title>
-
+{% extends 'base.html' %}
 {% block content %}
-<!--Navigation links-->
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
-                <li><a href="{{url_for('chatter_bp.show_posts')}}">Chats</a></li>
-                <li><a href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="current"><a href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
-                    <li><a href="{{ url_for('login_bp.login') }}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a></li>
-                </ul>
-                {% if session['admin']%}
-                    <li><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
 <h3>Please sign up by filling up your details below</h3>
 
     <!--form formatting-->
@@ -32,6 +9,7 @@
                 <div class="body">
                     <!--Form-->
                     <form role="form" action="" method="POST">
+                        {{ form.hidden_tag() }}
 
                         <!--first_name kwarg-->
                         <div class="form-group">
@@ -105,8 +83,8 @@
                             {% endif %}
                         </div>
 
-                        <input type="hidden" name="secret_key" value="Password">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<!--                        <input type="hidden" name="secret_key" value="Password">-->
+<!--                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">-->
 
                         <!--reset button-->
                         <button type="reset" name="reset" class="btn btn-danger" value="Form Cleared">Clear</button>
