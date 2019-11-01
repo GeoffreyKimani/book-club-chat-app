@@ -1,14 +1,21 @@
-# from flask import Flask
-# from flaskext.mysql import MySQL
-# from flask_wtf.csrf import CSRFProtect
-# import Flask
+import os
 
-MYSQL_DATABASE_USER = 'dungatac_adminBC'
-MYSQL_DATABASE_PASSWORD = 'Kx+9V+QjVCu'
-MYSQL_DATABASE_DB = 'dungatac_book_club_app'
-MYSQL_DATABASE_HOST = 'www.dungata.com'
-MYSQL_PORT = '3306'
+from ChatApp.constants import DATABASE_URI_ENV_NAME, SECRET_KEY
 
 
+class BaseConfig(object):
+    database_uri = os.getenv(DATABASE_URI_ENV_NAME)
+    SQLALCHEMY_DATABASE_URI = database_uri
+    SECRET_KEY = os.environ.get(SECRET_KEY) or os.urandom(32)
 
 
+class DevelopmentConfig(BaseConfig):
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    ENV = "development"
+    DEBUG = True
+
+
+class ProductionConfig(BaseConfig):
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    ENV = "production"
+    DEBUG = False
