@@ -39,7 +39,7 @@ def signup():
         return redirect(url_for('signup_bp.signup'))
 
     form = RegistrationForm(request.form)
-    page_title = "Sign Up"
+    title = "Sign Up"
 
     if form.validate_on_submit():
         from ChatApp.Models.user import User
@@ -55,4 +55,4 @@ def signup():
         login_user(user, remember=False)
         flash("Congratulations, you are now registered!")
         return redirect(url_for('chatter_bp.show_posts'))
-    return render_template('signup.html', form=form, page_title=page_title)
+    return render_template('signup.html', form=form, title=title, signup='current')

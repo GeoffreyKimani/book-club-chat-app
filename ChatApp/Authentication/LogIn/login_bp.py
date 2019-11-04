@@ -32,13 +32,13 @@ def login():
             login_user(user, remember=form.remember_me.data)
             flash("Welcome {0}, happy to remember me you!".format(form.username.data))
             return redirect(url_for('chatter_bp.show_posts'))
-    return render_template('login.html', title=title, form=form)
+    return render_template('login.html', title=title, form=form, login='current')
 
 
 @login_bp.route('/red_signup')
 def try_signup():
     return redirect(url_for("login_bp.login"))
 
-# @login_bp.route('/sign-up')
-# def signUp():
-#     return ''
+@login_bp.route('/sign-up')
+def signUp():
+    return ''
