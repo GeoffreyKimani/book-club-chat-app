@@ -39,5 +39,3 @@ def login():
 def try_signup():
     return redirect(url_for("login_bp.login"))
 
-def say():
-    return 'k'
