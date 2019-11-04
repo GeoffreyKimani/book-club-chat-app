@@ -1,97 +1,59 @@
-        kwargs = {
-            'book_club_name': request.form['book_club_name'],
-            'book_name': request.form['book_name'],
-            'book_author': request.form['book_author'],
-            'book_isbn': request.form['book_isbn'],
-            'book_category': request.form['book_category'],
-            'book_review': request.form['book_review'],
-            'password': request.form['password'],
-            'secret_key': request.form['secret_key']
-        }
+<!DOCTYPE html>
+<html lang="en">
+<body class="welcome_body" onload="carousel()">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-8 col-sm-8 col-xs-6">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header ">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                                <li><a href="{{ url_for('home_bp.to_dashboard') }}">Dashboard</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+                                <li><a href="{{ url_for('login_bp.login') }}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
+                <div class="welcome_page">
 
-        # @login_bp.before_request
-# def before_request():
-#     g.user = None
-#     if 'user' in session:
-#         g.user = session['user']
-#         return redirect(url_for('chatter_bp.show_posts'))
+                    <div class="sliderArea">
+                        <div class="sliderImages">
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image1.jpg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image6.jpeg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image8.jpeg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image9.png" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image11.jpeg" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image12.png" />
+                            <img class="mySlides img-responsive" style="width:100%" src="static/images/image13.jpg" />
 
-# def home():
-#     kwargs = {
-#         'title': request.form['title'],
-#         'text': request.form['text']
-#     }
-#     show_posts()
-#     # add_post(form)
+                            <br><br>
+                        </div>
+                    </div>
 
+                    {% for message in get_flashed_messages() %}
+                    <div class="flash">{{ message }}</div>
+                    {% endfor %}
 
-                # cursor.execute('UPDATE book_club_user SET book_club_id = (%s) '
-                #                ' WHERE email = (%s)', (last_book_club_inserted, user_id))
-
-                                        <!--&lt;!&ndash;book club name&ndash;&gt;-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="book_club_name">Name</label>-->
-                            <!--{{ form.book_club_name(class="form-control", placeholder="Enter Book Club Name Here") }}-->
-                            <!--{% if form.book_club_name.errors %}-->
-                                <!--<ul class="error">-->
-                                    <!--{% for error in form.book_club_name.errors %}-->
-                                        <!--<li>{{error}}</li>-->
-                                    <!--{% endfor %}-->
-                                <!--</ul>-->
-                            <!--{% endif %}-->
-                        <!--</div>-->
-
-                                    # # get the user who made the post
-            # session['post'] = session.get(user_email)
-            #
-            # cursor.execute('SELECT a.username FROM user a JOIN user_post b USING (email) WHERE (email, b.post_id) = (%s, %s)',
-            #                (user_email, last_post_id))
-            # username = format_db_string(str(cursor.fetchone()))
-            # print(username)
-
-            # def check_user_posts():
-#     from ChatApp import mysql
-#     connection = mysql.connect()
-#     cursor = connection.cursor()
-#
-#     cursor.execute('SELECT email FROM user WHERE username=(%s)', session['user'])
-#     user_email = format_db_string(str(cursor.fetchone()))
-#     print(user_email)
-#
-#     cursor.execute('SELECT a.username FROM user a JOIN user_post b USING (email) WHERE email = (%s)',
-#                    user_email)
-#     username = format_db_string(str(cursor.fetchone()))
-#
-#     cursor.close()
-#     connection.close()
-#
-#     return username
-
-
-        # """to fetch user specific posts, we need to decouple the book clubs and get the active book club a user is in
-        # at the moment """
-        # # first create a session key-value pair storing the book_club_id and book_id
-        # # cursor.execute('SELECT ')
-
-
-                cursor.execute('SELECT (email) FROM user WHERE username = (%s)', session['user'])
-        user_id = str(cursor.fetchone())
-        user_email = format_db_string(user_id)
-
-
-        list items iteration
-    book_club_list = []
-    6SBcg5brnJRn
-    for item in range(len(book_club)):
-        book_club_list = book_club[item]
-        print(book_club_list)
-
-gG.d;3f%]q(q
-
-
-# @dashboard_bp.route('/admin-approve-join-requests')
-# def admin_dashboard():
-#     page_title = 'Approve Join Request'
-#Kx+9V+QjVCu
-#     return render_template('admin_dashboard.html', page_title=page_title)
+                    It is said <b>a man who reads lives a thousand lives.</b> How many lives are you living?<br><br>
+                    <ul class="welcome_questions">
+                        <li>Do You wish to find a group of people to discuss books you have or are reading?</li>
+                        <li>Do You want a book club to help you in reading? </li>
+                        <li>Are you a fun of reading books? </li>
+                        <li>Ultimately, Do You want to live 1000 lives? </li>
+                    </ul>
+                    Search no more... Welcome to Book Club Chat App.<br>
+                    Have your mind engaged and blown in searching knowledge, wisdom, insights and understanding through various books and authors. <br><br>
+                    To continue you can <a href="{{url_for('home_bp.redirect_login')}}">login</a> or
+                    <a href="{{url_for('home_bp.redirect_signup')}}">sign up</a> to register.<br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
