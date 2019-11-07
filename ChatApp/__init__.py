@@ -75,7 +75,7 @@ def create_app():
     app = Flask(__name__)
 
     login.init_app(app)
-    login.login_view = 'login'
+    login.login_view = 'login_bp.login'
 
     # call to configure app, logging and register blue prints
     config_app(app)
@@ -93,12 +93,8 @@ def create_app():
 
     return app
 
-# login = LoginManager()
-# login.init_app(app=create_app())
-# login.login_view = 'login'
 
-
-# @login.user_loader
-# def load_user(user_id):
-#     from ChatApp.Models.user import User
-#     return BaseModel.db.session.query(User).get(int(user_id))
+@login.user_loader
+def load_user(user_id):
+    from ChatApp.Models.user import User
+    return BaseModel.db.session.query(User).get(int(user_id))

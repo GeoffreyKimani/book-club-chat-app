@@ -35,6 +35,7 @@ class RegistrationForm(FlaskForm):
 
 @signup_bp.route('/signup', methods=['POST', 'GET'])
 def signup():
+    # TODO: Check this logic
     if current_user.is_authenticated:
         return redirect(url_for('signup_bp.signup'))
 

@@ -4,7 +4,7 @@
             <ul class="nav navbar-nav">
                 <li class="{{home}}" ><a href="{{ url_for('home_bp.index')}}">Home</a></li>
                 <li class="{{current}}" ><a href="{{url_for('chatter_bp.show_posts')}}">Chats</a></li>
-                <li class="{{current}}" ><a href="{{ url_for('dashboard_bp.dashboard') }}">Dashboard</a></li>
+                <li class="{{dashboard}}" ><a href="{{ url_for('dashboard_bp.dashboard') }}">Dashboard</a></li>
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="{{signup}}"><a href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
