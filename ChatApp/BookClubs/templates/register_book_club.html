@@ -1,37 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{page_title}}</title>
+{% extends 'base_template.html' %}
+<!-- TODO: Add a navigation Item -->
+<!--{% block nav %}-->
+<!--    <li class="current"><a href="#">Register Book Club</a></li>-->
+<!--{% endblock%}-->
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sign_up_log_in.css')}}">
-    <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
-
-</head>
+{% block body%}
 <body class="signup_body">
     <h3>Please fill in the details below to create a book club</h3>
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="body">
-                    <nav class="navbar navbar-default">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
-                                    <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
-                                    <li><a href="{{ url_for('dashboard_bp.dashboard')}}">Dashboard</a></li>
-                                    <li class="current"><a href="#">Register Book Club</a></li>
-                                    <li><a href="{{ url_for('dashboard_bp.logout')}}">Log Out</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-
                     <form role="form" method="POST">
-
+                        {{ form.hidden_tag() }}
                         {% with messages = get_flashed_messages() %}
                             {% if messages %}
                                 <ul class="flash">
@@ -44,7 +25,7 @@
 
                         <!--book club name-->
                         <div class="form-group">
-                            <label for="book_club_name">Name</label>
+                            <label for="book_club_name">Book Club Name</label>
                             {{ form.book_club_name(class="form-control", placeholder="Enter Book Club Name Here") }}
                             {% if form.book_club_name.errors %}
                                 <ul class="error">
@@ -55,6 +36,23 @@
                             {% endif %}
                         </div>
 
+                        <!--Description-->
+                        <div class="form-group">
+                            <label for="description">Group Description</label>
+                            <textarea name="description" rows=5 cols=5 class="form-control" placeholder="Give description of this group"></textarea>
+                            {% if form.description.errors %}
+                                <ul class="error">
+                                    {% for error in form.description.errors %}
+                                        <li>{{error}}</li>
+                                    {% endfor %}
+                                </ul>
+                             {% endif %}
+                        </div>
+
+
+                        <hr>
+                        <hr>
+                        <hr>
                         <!--details of book being read-->
 
                         <!--book name-->
@@ -123,10 +121,6 @@
                              {% endif %}
                         </div>
 
-
-                        <input type="hidden" name="secret_key" value="Password">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
                         <!--reset button-->
                         <button type="reset" name="reset" class="btn btn-danger" value="Form Cleared">Clear</button>
 
@@ -134,11 +128,9 @@
                         <button type="submit" name="submit" class="btn btn-success" value="Form Sent">Submit</button>
 
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
-
 </body>
-</html>
+{% endblock %}
