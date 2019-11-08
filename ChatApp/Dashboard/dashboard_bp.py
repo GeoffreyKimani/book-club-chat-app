@@ -1,49 +1,30 @@
 from flask import Blueprint, render_template, session, url_for, redirect, flash
+from flask_login import login_required, current_user, logout_user
+
+from ChatApp.Models.user import User
+
 # from ChatApp.Authentication.LogIn.login_bp import format_db_string
 
 dashboard_bp = Blueprint('dashboard_bp', __name__, static_folder='static', template_folder='templates')
 
 
 @dashboard_bp.route('/dashboard')
-# class Dashboard:
+@login_required
 def dashboard():
-    # global book_club_list
-    page_title = "Dashboard"
+    title = "Dashboard"
+    user = User.query.filter(User.id == current_user.id).first()
 
-    session['user'] = session.get('user')
-    session['user_id'] = session.get('user_id')
+    book_clubs = []
+    for book_club in user.book_club:
+        book_club_dict = {'name': book_club.name}
 
-    if session['user']:
+        for book in book_club.books:
+            book_club_dict['book'] = book.title
 
-        from ChatApp import app
-        app.logger.info('User  ' + str(session['user']) + ' accessing dashboard.')
+        book_clubs.append(book_club_dict)
 
-        from ChatApp import mysql
-        connection = mysql.connect()
-        cursor = connection.cursor()
-
-        # check the book clubs the user is in
-        cursor.execute('SELECT b.name, book_club_id FROM book_club b JOIN book_club_user s USING (book_club_id) '
-                       'WHERE email = (%s)', session['user_id'])
-        book_club_list = [dict(name=row[0], id=row[1]) for row in cursor.fetchall()]
-        print(book_club_list)
-
-        book_book_club = []
-        for item in book_club_list:
-            print(item['id'])
-
-            # check the books available for each of the book_clubs
-            # first we will need to get a list of all the book clubs a user is in
-            cursor.execute('SELECT b.title FROM book b JOIN book_club_book s USING (book_id)'
-                           'WHERE book_club_id = (%s)', item['id'])
-            book_book_club = [dict(title=row[0]) for row in cursor.fetchall()]
-            print(book_book_club)
-        print(book_book_club)
-        return render_template('dashboard.html', page_title=page_title,
-                               book_club_list=book_club_list, book_book_club=book_book_club)
-    else:
-        flash('To continue, please Log In first or ')
-        return redirect(url_for('login_bp.login'))
+    return render_template('dashboard.html', title=title, dashboard='current',
+                           book_clubs=book_clubs)
 
 
 @dashboard_bp.route('/book-club-selection/<id>')
@@ -81,6 +62,7 @@ def logout():
     session.pop('active', None)
     session.pop('active_id', None)
     session.pop('admin', None)
+    logout_user()
     flash('You are now logged out!')
     return redirect(url_for('home_bp.index'))
 

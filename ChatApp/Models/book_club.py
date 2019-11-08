@@ -10,8 +10,8 @@ class BookClub(BaseModel.db.Model):
 
     # relationships
     posts = AppDb.relationship('Post', backref='posts', lazy='dynamic')
-    users = AppDb.relationship('User', secondary=book_club_user, lazy='dynamic',
-                               backref=AppDb.backref('book_club', lazy=True))
+    users = AppDb.relationship('User', secondary=book_club_user,
+                               backref=AppDb.backref('book_club',  lazy='dynamic'))
     books = AppDb.relationship('Book', secondary=book_club_book, lazy='dynamic',
                                backref=AppDb.backref('book_club', lazy=True))
     admins = AppDb.relationship('User', secondary=book_club_admin, lazy='dynamic',

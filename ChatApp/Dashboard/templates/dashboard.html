@@ -1,66 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ page_title }}</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/dashboard.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/bootstrap.css')}}">
-    <link rel = "shortcut icon" href = "{{ url_for('static', filename='images/title_icon.jpeg') }}"/>
-</head>
+{% extends 'base_template.html' %}
+{% block body %}
 <body class="dashboard">
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <ul class="nav navbar-nav">
-                                <li><a href="{{ url_for('home_bp.index')}}">Home</a></li>
-                                <li><a href="{{ url_for('chatter_bp.show_posts')}}">Chats</a></li>
-                                <li class="current"><a href="#">Dashboard</a></li>
-                                {% if session['admin']%}
-                                    <li class="current"><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
-                                {% endif %}
-                                <li><a href="{{ url_for('dashboard_bp.logout')}}">Log Out</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
                 <div class="dashboard_area">
+                   {% include 'flash_messages.html' %}
                     <!--PROFILE AREA-->
                     <h1>PROFILE</h1><br>
                     <a><span class="profile_circle"></span><br><br></a>
-                    <p>Name: {{ session['user'] }}</p> <p></p><br>
-                    {% if 'active' in session %}
-                        <p>Active Book Club: {{ session['active'] }}</p> <p></p><br>
-                    {% else %}
-                        <p>Active Book Club: No Book Club Selected </p> <p></p><br>
-                    {% endif %}
+                    <p><b>Name:</b> {{ current_user.username.upper() }}</p><br>
+                    <p><b>Active Book Club:</b>
+                        {% if 'active' in session %}
+                            {{ session['active'] }}
+                        {% else %}
+                            No Book Club Selected
+                        {% endif %}
+                    </p><br>
 
                     <!--BOOK CLUB AREA-->
                     <h1 class="heading_format">Book Clubs</h1><br>
                     <blockquote>
                         <!--display book club-->
                         <ul class="book_club">
-                            {% for book_club in book_club_list %}
-                                    <li class="bottom_nav">
-                                        <a href="{{url_for('dashboard_bp.book_club_selection', id=book_club.id)}}" onclick="showMe()"><h3 class="heading_2">{{book_club.name}}</h3></a>
-                                    </li>
-
-                                <div id="BookClubBook">
-                                <li>
-                                    <h2 class="heading_format">Book Clubs</h2><br>
-                                    <ul>
-                                        {% for book in book_book_club %}
-                                            <a onclick="setId()" ><li>{{book.title}}</li></a>
-                                        {% endfor %}
-                                    </ul>
+                            {% for book_club in book_clubs %}
+                                <li class="bottom_nav">
+                                    <a href="{{url_for('dashboard_bp.book_club_selection', id=book_club.id)}}" onclick="showMe()"><h3 class="heading_2">{{book_club['name']}}</h3></a>
                                 </li>
-                                </div>
+                                <blockquote>
+                                    <div id="BookClubBook">
+                                        <li>
+                                            <h2 class="heading_format">Books</h2><br>
+                                            <ul>
+                                                <li><a onclick="setId()" >{{ book_club['book'] }}</a></li>
+                                            </ul>
+                                        </li>
+                                    </div>
+                                </blockquote>
                             {% endfor %}
                         </ul>
                     </blockquote>
@@ -73,21 +49,7 @@
                         {% if session['admin'] %}
                             <h4 class="bottom_nav"><a href="{{ url_for('book_club_bp.approve_join_request')}}">View Join Requests</a></h4>
                         {% endif %}
-                        <h4><li><a href="{{ url_for('dashboard_bp.logout')}}">Log Out</a></li></h4>
                     </ul>
-
-
-
-                        <!--flash messages-->
-                        {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                <ul class="flash">
-                                    {% for message in messages %}
-                                        <li>{{message}}</li>
-                                    {% endfor %}
-                                 </ul>
-                            {% endif%}
-                        {% endwith %}
                 </div>
             </div>
         </div>
@@ -103,4 +65,4 @@
         var id = 1
     }
 </script>
-</html>
+{% endblock %}
