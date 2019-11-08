@@ -1,19 +1,35 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <ul class="nav navbar-nav">
-                <li class="{{home}}" ><a href="{{ url_for('home_bp.index')}}">Home</a></li>
-                <li class="{{current}}" ><a href="{{url_for('chatter_bp.show_posts')}}">Chats</a></li>
-                <li class="{{dashboard}}" ><a href="{{ url_for('dashboard_bp.dashboard') }}">Dashboard</a></li>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <ul class="nav navbar-nav">
+                            <li class="{{home}}" ><a href="{{ url_for('home_bp.index')}}">Home</a></li>
+                            <li class="{{current}}" ><a href="{{url_for('chatter_bp.show_posts')}}">Chats</a></li>
+                            <li class="{{dashboard}}" ><a href="{{ url_for('dashboard_bp.dashboard') }}">Dashboard</a></li>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="{{signup}}"><a href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
-                    <li class="{{login}}"><a href="{{ url_for('login_bp.login') }}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a></li>
-                </ul>
-                {% if session['admin']%}
-                    <li class="{{current}}"><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
-                {% endif %}
-            </ul>
+                            <!-- For additional links -->
+                            {% block nav %} {% endblock %}
+
+                            {% if session['admin']%}
+                                <li class="{{current}}"><a href="{{ url_for('book_club_bp.approve_join_request')}}">Join Requests</a></li>
+                            {% endif %}
+
+                            {% if current_user.is_authenticated %}
+                                <li><a href="{{ url_for('dashboard_bp.logout')}}"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+                            {% endif %}
+
+                            {% if current_user.is_anonymous%}
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="{{signup}}"><a href="{{ url_for('signup_bp.signup') }}"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+                                    <li class="{{login}}"><a href="{{ url_for('login_bp.login') }}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a></li>
+                                </ul>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
     </div>
-</nav>
+</div>

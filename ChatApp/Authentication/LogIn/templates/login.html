@@ -44,15 +44,7 @@
                         <button type="submit" name="submit" class="btn btn-success" value="Form Sent">Submit</button>
 
                         <!--flash messages-->
-                        {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                <ul class="flash">
-                                    {% for message in messages %}
-                                        <li>{{message}} <a href="{{url_for('login_bp.try_signup')}}">SignUp </a>to create an account</li>
-                                    {% endfor %}
-                                 </ul>
-                            {% endif%}
-                        {% endwith %}
+                        {% include 'flash_messages.html' %}
 
                     </form>
                 </div>
